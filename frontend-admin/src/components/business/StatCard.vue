@@ -1,0 +1,3 @@
+<script setup>defineProps({label:String,value:[String,Number],hint:{type:String,default:''},icon:String})</script>
+<template><article class="stat"><img v-if="icon" :src="icon" alt="" data-pixel><div><span>{{ label }}</span><strong>{{ value }}</strong><small>{{ hint }}</small></div></article></template>
+<style scoped>.stat{display:flex;align-items:center;gap:14px;min-height:120px;padding:18px;border:3px solid var(--c-wood-dark);background:var(--c-surface);box-shadow:var(--shadow-pixel)}.stat img{width:44px;height:44px}.stat div{display:grid;gap:3px}.stat span,.stat small{color:var(--c-ink-2)}.stat strong{font-family:var(--font-pixel);font-size:28px;color:var(--c-moss-dark)}</style>

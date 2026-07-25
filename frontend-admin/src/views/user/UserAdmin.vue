@@ -1,0 +1,17 @@
+<script setup>
+import { computed, onMounted, reactive, ref } from 'vue'
+import { ElMessageBox } from 'element-plus'
+import { listUsers, replaceRoles, updateEnabled } from '@/api/user'
+import FilterBar from '@/components/business/FilterBar.vue'
+import { useUserStore } from '@/stores/user'
+const user=useUserStore(),canManageRoles=computed(()=>user.roles.includes('SUPER_ADMIN'))
+const rows=ref([]),total=ref(0),loading=ref(false),rolesOpen=ref(false),current=ref(null),roleIds=ref([])
+const query=reactive({page:1,size:10,email:'',name:'',enabled:null})
+async function load(){loading.value=true;try{const data=await listUsers(query);rows.value=data?.records||data?.list||[];total.value=Number(data?.total||rows.value.length)}finally{loading.value=false}}
+async function toggle(row,value){if(!value)await ElMessageBox.confirm(`停用 ${row.email}？`,'停用用户',{type:'warning'});await updateEnabled(row.id,value);load()}
+function roles(row){current.value=row;roleIds.value=(row.roles||[]).map(r=>typeof r==='object'?r.id:r);rolesOpen.value=true}
+async function saveRoles(){await ElMessageBox.confirm('角色变更会立即影响权限；最后一名超级管理员受后端保护。','确认角色',{type:'warning'});await replaceRoles(current.value.id,roleIds.value);rolesOpen.value=false;load()}
+onMounted(load)
+</script>
+<template><div class="page"><header><small>USERS</small><h1>用户管理</h1></header><FilterBar><el-input v-model="query.email" placeholder="邮箱"/><el-input v-model="query.name" placeholder="用户名"/><el-select v-model="query.enabled" clearable placeholder="状态"><el-option label="启用" :value="true"/><el-option label="停用" :value="false"/></el-select><template #actions><el-button @click="load">筛选</el-button></template></FilterBar><section class="table-card"><el-table v-loading="loading" :data="rows"><el-table-column prop="id" label="ID" width="80"/><el-table-column prop="email" label="邮箱" min-width="190"/><el-table-column prop="name" label="用户名" width="120"/><el-table-column prop="mobile" label="手机" width="130"/><el-table-column label="角色" min-width="160"><template #default="{row}"><el-tag v-for="r in row.roles||[]" :key="r.id||r" class="role">{{ r.code||r }}</el-tag></template></el-table-column><el-table-column label="启用" width="90"><template #default="{row}"><el-switch :model-value="row.enabled" @change="toggle(row,$event)"/></template></el-table-column><el-table-column prop="createdAt" label="注册时间" width="180"/><el-table-column v-if="canManageRoles" label="操作" width="100"><template #default="{row}"><el-button link @click="roles(row)">修改角色</el-button></template></el-table-column></el-table><el-pagination v-model:current-page="query.page" :page-size="query.size" :total="total" @current-change="load"/></section><el-dialog v-if="canManageRoles" v-model="rolesOpen" title="修改角色" width="460px"><p class="warning">最后一名超级管理员不可被降级或停用。</p><el-checkbox-group v-model="roleIds"><el-checkbox :value="1">SUPER_ADMIN</el-checkbox><el-checkbox :value="2">ADMIN</el-checkbox><el-checkbox :value="3">USER</el-checkbox></el-checkbox-group><template #footer><el-button @click="rolesOpen=false">取消</el-button><el-button type="primary" @click="saveRoles">确认</el-button></template></el-dialog></div></template>
+<style scoped>.page{display:grid;gap:18px}header small{color:var(--c-moss-dark)}h1{font-family:var(--font-pixel);color:var(--c-wood-dark)}.table-card{padding:14px;border:3px solid var(--c-wood-dark);background:var(--c-surface);box-shadow:var(--shadow-pixel);overflow:auto}.role{margin-right:4px}.warning{margin-bottom:14px;color:var(--c-brick)}</style>

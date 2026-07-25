@@ -1,0 +1,6 @@
+/* 设计 Token · 阴影 —— 依据 docs/design/10 §3（仅硬像素投影，无模糊，禁止柔和大阴影/玻璃拟态） */
+:root {
+  --shadow-pixel: 2px 2px 0 rgba(58, 42, 28, .25);      /* 默认硬投影 */
+  --shadow-pixel-lg: 3px 3px 0 rgba(58, 42, 28, .28);   /* hover 抬升后下移一档 */
+  --shadow-pixel-inset: inset 2px 2px 0 rgba(58, 42, 28, .18); /* 按压/凹陷 */
+}

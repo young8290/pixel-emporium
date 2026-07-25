@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: Gateway
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:5173"
+              - "http://localhost:6173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
+      routes:
+        - id: user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+          uri: http://localhost:8080
+        - id: business
+          predicates:
+            - Path=/business/**
+          filters:
+            - StripPrefix=1
+          uri: http://localhost:8081
+
+auth:
+  jwt:
+    secret-key: ${JWT_SECRET:}

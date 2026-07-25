@@ -1,0 +1,10 @@
+import http from '../http'
+export const listSkus=(params={})=>http.get('/business/admin/product-sku/list',{params})
+export const saveSku=(data)=>http.post('/business/admin/product-sku/save',data)
+export const generateSkus=(data)=>http.post('/business/admin/product-sku/generate',data)
+export const deleteSku=(id,productId)=>http.delete(`/business/admin/product-sku/${id}`,{params:{productId}})
+export const listAttributes=(productId)=>http.get('/business/admin/product-attribute/tree',{params:{productId}})
+export const saveAttribute=(data)=>http.post('/business/admin/product-attribute/save',data)
+export const deleteAttribute=(id)=>http.delete(`/business/admin/product-attribute/${id}`)
+export const saveAttributeValue=(data)=>http.post('/business/admin/product-attribute/value/save',data)
+export const deleteAttributeValue=(id)=>http.delete(`/business/admin/product-attribute/value/${id}`)

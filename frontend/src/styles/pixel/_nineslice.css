@@ -1,0 +1,54 @@
+/* 像素层 · 9-slice 木框与木牌 —— 依据 docs/design/10 §3 与 docs/image2/29 切片台账
+ * border-image 切片（1x）：card 16 / dialog 20 / input 8 / signboard 16-20
+ * 资源在 src/assets/pixel/borders/，通过 CSS border-image 引用。
+ */
+
+/* 木框卡片 9-slice（border-card-9slice 48×48，切片 16） */
+.px-frame-card {
+  border-style: solid;
+  border-width: 16px;
+  border-image: url("../../assets/pixel/borders/border-card-9slice.png") 16 fill repeat;
+  image-rendering: pixelated;
+}
+
+/* 对话框木框 9-slice（dialog-9slice 64×64，切片 20） */
+.px-frame-dialog {
+  border-style: solid;
+  border-width: 20px;
+  border-image: url("../../assets/pixel/borders/dialog-9slice.png") 20 fill repeat;
+  image-rendering: pixelated;
+}
+
+/* 输入框边 9-slice（input-9slice 32×32，切片 8） */
+.px-frame-input {
+  border-style: solid;
+  border-width: 8px;
+  border-image: url("../../assets/pixel/borders/input-9slice.png") 8 fill repeat;
+  image-rendering: pixelated;
+}
+
+/* 木牌标题条 9-slice（signboard-9slice 64×48，切片 16/20/16/20，横向 repeat） */
+.px-signboard {
+  border-style: solid;
+  border-width: 16px 20px;
+  border-image: url("../../assets/pixel/borders/signboard-9slice.png") 16 20 fill repeat;
+  image-rendering: pixelated;
+  min-height: var(--h-title-sign);
+  display: inline-flex;
+  align-items: center;
+  color: var(--c-wood-dark);
+  font-family: var(--font-pixel);
+}
+
+/* 徽标/角标底（badge-base 32×32） */
+.px-badge {
+  border-style: solid;
+  border-width: 8px;
+  border-image: url("../../assets/pixel/borders/badge-base.png") 8 fill repeat;
+  image-rendering: pixelated;
+}
+
+/* 像素图统一渲染：放大不模糊 */
+.px-crisp {
+  image-rendering: pixelated;
+}

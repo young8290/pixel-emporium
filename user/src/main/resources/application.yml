@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    url: ${USER_DB_URL:jdbc:mysql://localhost:3306/sb-shop-user?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${USER_DB_USERNAME:root}
+    password: ${USER_DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.example.user.entity
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+auth:
+  jwt:
+    secret-key: ${JWT_SECRET:}
+    # 1000 * 60 * 60 * 24 默认 24 小时
+    expires-in: 86400000
+
+custom:
+  private-key: ${RSA_PRIVATE_KEY:}
+
+mail:
+  crypto:
+    master-key-base64: ${MAIL_CONFIG_MASTER_KEY_BASE64:}
+  internal:
+    hmac-secret: ${MAIL_INTERNAL_HMAC_SECRET:}
+    max-clock-skew-seconds: ${MAIL_INTERNAL_MAX_CLOCK_SKEW_SECONDS:300}
+  verification:
+    pepper: ${MAIL_VERIFICATION_PEPPER:}
+    ttl-seconds: ${MAIL_VERIFICATION_TTL_SECONDS:600}
+    resend-cooldown-seconds: ${MAIL_VERIFICATION_RESEND_COOLDOWN_SECONDS:60}
+    email-hourly-limit: ${MAIL_VERIFICATION_EMAIL_HOURLY_LIMIT:5}
+    ip-hourly-limit: ${MAIL_VERIFICATION_IP_HOURLY_LIMIT:20}
+    max-attempts: ${MAIL_VERIFICATION_MAX_ATTEMPTS:5}
+    trusted-proxy-addresses: ${MAIL_VERIFICATION_TRUSTED_PROXY_ADDRESSES:127.0.0.1,::1}
+  links:
+    storefront-base-url: ${MAIL_STOREFRONT_BASE_URL:http://localhost:5173}
+    asset-base-url: ${MAIL_ASSET_BASE_URL:http://localhost:8080}

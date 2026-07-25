@@ -1,0 +1,2 @@
+<script setup>import PixelTabs from '@/components/ui/PixelTabs.vue';defineProps({modelValue:{type:String,default:''}});defineEmits(['update:modelValue']);const items=[{label:'全部',value:''},{label:'待付款',value:'PENDING_PAYMENT'},{label:'待发货',value:'PAID'},{label:'待收货',value:'SHIPPED'},{label:'已完成',value:'COMPLETED'},{label:'已取消',value:'CANCELED'}]</script>
+<template><PixelTabs :model-value="modelValue" :items="items" @update:model-value="$emit('update:modelValue',$event)" /></template>

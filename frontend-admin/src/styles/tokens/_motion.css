@@ -1,0 +1,28 @@
+/* 设计 Token · 动效 —— 依据 docs/design/10 §2/§6.1/§6.2
+ * 像素风偏「硬、快、克制」；动效只服务状态可读性与操作确认。
+ * 全局 reduced-motion 降级在 styles/base.css 中兜底。
+ */
+:root {
+  /* 时长 */
+  --dur-1: 90ms;    /* 微反馈：hover/按压 */
+  --dur-2: 160ms;   /* 常规：淡入/展开/切换 */
+  --dur-3: 240ms;   /* 进出场：弹窗/抽屉/骨架淡出 */
+  --dur-4: 360ms;   /* 大幅：页面转场，克制使用 */
+
+  /* 缓动 */
+  --ease-std: cubic-bezier(.2, 0, 0, 1);          /* 标准进出 */
+  --ease-out: cubic-bezier(0, 0, .2, 1);          /* 进入 */
+  --ease-in: cubic-bezier(.4, 0, 1, 1);           /* 退出 */
+  --ease-bounce: cubic-bezier(.34, 1.56, .64, 1); /* 像素风回弹 */
+
+  /* 位移量 */
+  --rise: 2px;      /* hover 抬升 */
+  --press: 1px;     /* 按压下沉 */
+
+  /* 挂牌导航专用（§6.1） */
+  --sign-sway: 6px;
+  --sign-tilt: 1.5deg;
+  --dur-sign: 180ms;
+  --dur-drop: 260ms;
+  --ease-sign: cubic-bezier(.34, 1.56, .64, 1);
+}

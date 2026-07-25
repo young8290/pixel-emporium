@@ -1,0 +1,70 @@
+/* Element Plus 主题覆盖 —— 依据 docs/design/10 §10、FE-02
+ * 用 CSS 变量把 EP 主色映射到星露谷像素风：主色 moss、价格/提醒 amber、危险 brick；
+ * 低圆角、去柔和大阴影、字体族走正文栈。放在 EP 基础样式之后引入以确保覆盖生效。
+ */
+html:root {
+  /* 主色（moss 草绿） */
+  --el-color-primary: var(--c-moss);
+  --el-color-primary-light-3: color-mix(in srgb, var(--c-moss) 70%, var(--c-surface));
+  --el-color-primary-light-5: color-mix(in srgb, var(--c-moss) 50%, var(--c-surface));
+  --el-color-primary-light-7: color-mix(in srgb, var(--c-moss) 30%, var(--c-surface));
+  --el-color-primary-light-8: color-mix(in srgb, var(--c-moss) 20%, var(--c-surface));
+  --el-color-primary-light-9: color-mix(in srgb, var(--c-moss) 10%, var(--c-surface));
+  --el-color-primary-dark-2: var(--c-moss-dark);
+
+  /* 语义色 */
+  --el-color-success: var(--c-moss);
+  --el-color-warning: var(--c-amber);
+  --el-color-danger: var(--c-brick);
+  --el-color-error: var(--c-brick);
+  --el-color-info: var(--c-ink-2);
+
+  /* 文本 */
+  --el-text-color-primary: var(--c-ink);
+  --el-text-color-regular: var(--c-ink);
+  --el-text-color-secondary: var(--c-ink-2);
+  --el-text-color-placeholder: var(--c-ink-2);
+
+  /* 边框 / 填充 */
+  --el-border-color: var(--c-wood);
+  --el-border-color-light: var(--c-line);
+  --el-border-color-lighter: var(--c-line);
+  --el-fill-color-blank: var(--c-surface);
+  --el-bg-color: var(--c-surface);
+  --el-bg-color-overlay: var(--c-surface);
+  --el-disabled-bg-color: var(--c-disabled);
+
+  /* 圆角（低圆角，禁胶囊） */
+  --el-border-radius-base: 4px;
+  --el-border-radius-small: 2px;
+  --el-border-radius-round: 4px;
+
+  /* 字体族（中文快读无衬线） */
+  --el-font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  /* 去除柔和大阴影，改硬像素投影 */
+  --el-box-shadow: var(--shadow-pixel);
+  --el-box-shadow-light: var(--shadow-pixel);
+  --el-box-shadow-lighter: var(--shadow-pixel);
+}
+
+/* 按钮：像素硬投影 + 低圆角 */
+.el-button {
+  border-radius: var(--radius);
+  border-width: 2px;
+  font-weight: 700;
+}
+
+/* 卡片 / 弹窗：去柔和阴影 */
+.el-card,
+.el-dialog,
+.el-message-box {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-pixel);
+}
+
+/* 输入框低圆角 */
+.el-input__wrapper,
+.el-textarea__inner {
+  border-radius: var(--radius);
+}

@@ -1,0 +1,170 @@
+spring:
+  application:
+    name: business
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+  datasource:
+    url: ${BUSINESS_DB_URL:jdbc:mysql://localhost:3306/sb-shop-business?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${BUSINESS_DB_USERNAME:root}
+    password: ${BUSINESS_DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 220MB
+
+upload:
+  security:
+    image-max-bytes: 5242880
+    video-max-bytes: 104857600
+    document-max-bytes: 20971520
+    remote-max-bytes: 20971520
+    connect-timeout-millis: 3000
+    read-timeout-millis: 10000
+    max-redirects: 3
+    remote-allowed-hosts: []
+    allowed-types:
+      .jpg: image/jpeg
+      .jpeg: image/jpeg
+      .png: image/png
+      .webp: image/webp
+      .gif: image/gif
+      .mp4: video/mp4
+      .pdf: application/pdf
+      .doc: application/msword
+      .docx: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.example.business.entity
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+auth:
+  jwt:
+    secret-key: ${JWT_SECRET:}
+    # 1000 * 60 * 60 * 24 默认 24 小时
+    expires-in: 86400000
+
+alibaba:
+  cloud:
+    oss:
+      enabled: ${OSS_ENABLED:false}
+      endpoint: ${OSS_ENDPOINT:oss-cn-shenzhen.aliyuncs.com}
+      access-key: ${OSS_ACCESS_KEY:}
+      secret-key: ${OSS_SECRET_KEY:}
+      bucket: ${OSS_BUCKET:}
+
+order:
+  timeout-minutes: 30
+  timeout-scan-interval-ms: 60000
+
+payment:
+  mock-enabled: ${PAYMENT_MOCK_ENABLED:false}
+  alipay:
+    enabled: ${ALIPAY_ENABLED:false}
+    app-id: ${ALIPAY_APP_ID:}
+    seller-id: ${ALIPAY_SELLER_ID:}
+    gateway-url: ${ALIPAY_GATEWAY_URL:https://openapi-sandbox.dl.alipaydev.com/gateway.do}
+    private-key: ${ALIPAY_PRIVATE_KEY:}
+    alipay-public-key: ${ALIPAY_PUBLIC_KEY:}
+    sign-type: ${ALIPAY_SIGN_TYPE:RSA2}
+    charset: UTF-8
+    notify-url: ${ALIPAY_NOTIFY_URL:}
+    return-url: ${ALIPAY_RETURN_URL:}
+
+notification:
+  mail:
+    base-url: ${MAIL_INTERNAL_BASE_URL:http://localhost:8080}
+    hmac-secret: ${MAIL_INTERNAL_HMAC_SECRET:}
+    connect-timeout-ms: ${MAIL_INTERNAL_CONNECT_TIMEOUT_MS:2000}
+    read-timeout-ms: ${MAIL_INTERNAL_READ_TIMEOUT_MS:5000}
+    dispatch-interval-ms: ${MAIL_INTERNAL_DISPATCH_INTERVAL_MS:10000}
+    batch-size: ${MAIL_INTERNAL_BATCH_SIZE:20}
+
+pixel-style:
+  enabled: ${PIXEL_STYLE_ENABLED:false}
+  api:
+    base-url: ${PIXEL_STYLE_API_BASE_URL:}
+    key: ${PIXEL_STYLE_API_KEY:}
+    model: ${PIXEL_STYLE_API_MODEL:}
+    auth-header: ${PIXEL_STYLE_AUTH_HEADER:Authorization}
+    auth-scheme: ${PIXEL_STYLE_AUTH_SCHEME:Bearer}
+    image-field: ${PIXEL_STYLE_IMAGE_FIELD:image}
+    prompt-field: ${PIXEL_STYLE_PROMPT_FIELD:prompt}
+    negative-field: ${PIXEL_STYLE_NEGATIVE_FIELD:negative_prompt}
+    strength-field: ${PIXEL_STYLE_STRENGTH_FIELD:strength}
+    size-field: ${PIXEL_STYLE_SIZE_FIELD:size}
+    model-field: ${PIXEL_STYLE_MODEL_FIELD:model}
+    response-url-field: ${PIXEL_STYLE_RESPONSE_URL_FIELD:data.0.url}
+    response-base64-field: ${PIXEL_STYLE_RESPONSE_BASE64_FIELD:data.0.b64_json}
+    response-content-type-field: ${PIXEL_STYLE_RESPONSE_CONTENT_TYPE_FIELD:data.0.content_type}
+  timeout-ms: ${PIXEL_STYLE_TIMEOUT_MS:30000}
+  max-concurrency: ${PIXEL_STYLE_MAX_CONCURRENCY:2}
+  rate: ${PIXEL_STYLE_RATE_PER_MINUTE:10}
+  max-retries: ${PIXEL_STYLE_MAX_RETRIES:2}
+  keep-original: true
+  presets:
+    - key: stardew-soft
+      name: 星露谷·柔和
+      strength: 0.42
+      size: 512
+      prompt: >-
+        Repaint this product photo into cozy Stardew-Valley-inspired pixel art, keeping the product clearly recognizable.
+        Stardew-Valley-inspired cozy pixel art, warm cozy palette (parchment cream #F3E7C9, grass-green #5F9E43,
+        orange-wood #A2652F, harvest-gold #E6A62B), crisp 1px pixel edges, consistent pixel density, flat 2D,
+        soft top-left light, gentle dithering, limited palette. Preserve the product's real shape, proportions and main colors;
+        simplify surfaces into clean pixel clusters; place on a soft cream or transparent background, centered, single subject.
+        In the cozy pixel style of Stardew Valley.
+      negative: >-
+        no photorealism, no 3D render, no blur, no anti-aliased vector look, no heavy gradients, no neon,
+        no extra objects, no busy background, no text or logo, no watermark, no distorted or unrecognizable product,
+        no changed product identity, no added food or produce props, do not turn the product into groceries,
+        keep the original product category.
+    - key: stardew-strong
+      name: 星露谷·浓郁
+      strength: 0.58
+      size: 512
+      prompt: >-
+        Repaint this product photo into cozy Stardew-Valley-inspired pixel art, keeping the product clearly recognizable.
+        Stardew-Valley-inspired cozy pixel art, warm cozy palette (parchment cream #F3E7C9, grass-green #5F9E43,
+        orange-wood #A2652F, harvest-gold #E6A62B), crisp 1px pixel edges, consistent pixel density, flat 2D,
+        soft top-left light, gentle dithering, limited palette. Preserve the product's real shape, proportions and main colors;
+        simplify surfaces into clean pixel clusters; place on a soft cream or transparent background, centered, single subject.
+        In the cozy pixel style of Stardew Valley. chunkier pixel blocks, stronger stylization, bolder outline,
+        more pronounced dithering.
+      negative: >-
+        no photorealism, no 3D render, no blur, no anti-aliased vector look, no heavy gradients, no neon,
+        no extra objects, no busy background, no text or logo, no watermark, no distorted or unrecognizable product,
+        no changed product identity, no added food or produce props, do not turn the product into groceries,
+        keep the original product category. not too abstract, keep the product silhouette readable.
+    - key: stardew-lineart
+      name: 星露谷·描边
+      strength: 0.50
+      size: 512
+      prompt: >-
+        Repaint this product photo into cozy Stardew-Valley-inspired pixel art, keeping the product clearly recognizable.
+        Stardew-Valley-inspired cozy pixel art, warm cozy palette (parchment cream #F3E7C9, grass-green #5F9E43,
+        orange-wood #A2652F, harvest-gold #E6A62B), crisp 1px pixel edges, consistent pixel density, flat 2D,
+        soft top-left light, gentle dithering, limited palette. Preserve the product's real shape, proportions and main colors;
+        simplify surfaces into clean pixel clusters; place on a soft cream or transparent background, centered, single subject.
+        In the cozy pixel style of Stardew Valley. add a subtle dark-wood 1px outline around the subject,
+        slightly flatter shading, like a Stardew inventory item icon.
+      negative: >-
+        no photorealism, no 3D render, no blur, no anti-aliased vector look, no heavy gradients, no neon,
+        no extra objects, no busy background, no text or logo, no watermark, no distorted or unrecognizable product,
+        no changed product identity, no added food or produce props, do not turn the product into groceries,
+        keep the original product category.

@@ -1,0 +1,30 @@
+/* 像素字体自托管 —— 依据 docs/design/10 §5
+ * 英文/数字 Silkscreen，中文 Zpix（备 Fusion Pixel），OFL 开源，本地自托管不外链 CDN。
+ *
+ * 说明：字体文件尚未放入 src/assets/fonts/，此处先只用 local() 命中系统已安装的同名字体，
+ * 未命中时浏览器按 --font-pixel 栈回退到 monospace/无衬线，不影响布局，也不会让 Vite
+ * 因解析不存在的 url() 而构建失败。字体文件就位后，取消对应 url() 注释即可启用自托管：
+ *   src: local("Silkscreen"), url("@/assets/fonts/Silkscreen-Regular.woff2") format("woff2");
+ * 性能护栏：中文像素字库较大，用 font-display:swap；如需进一步可用 unicode-range 子集化。
+ */
+
+@font-face {
+  font-family: "Silkscreen";
+  src: local("Silkscreen"),url("@/assets/fonts/Silkscreen-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Silkscreen";
+  src: local("Silkscreen Bold"),url("@/assets/fonts/Silkscreen-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fusion Pixel";
+  src: url("@/assets/fonts/FusionPixel12px-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}

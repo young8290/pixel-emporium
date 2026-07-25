@@ -1,0 +1,3 @@
+url=jdbc:mysql://localhost:3306/sb-shop-business?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+username=root
+password=

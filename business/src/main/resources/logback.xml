@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    区分开发环境和生产环境的日志配置
+    使用异步日志提高性能
+    按照日期进行日志滚动
+    保留历史日志并进行压缩
+    对不同级别的日志进行分类存储
+-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="MODULE_NAME" value="business"/>
+    <!-- 定义日志文件的存储地址 -->
+    <property name="LOG_HOME" value="${user.dir}/logs/${MODULE_NAME}"/>
+
+    <!-- 定义日志格式模板 -->
+    <!--
+        日志格式说明：
+        %d{yyyy-MM-dd HH:mm:ss.SSS} - 时间戳，精确到毫秒
+        %-5level - 日志级别，-5 表示左对齐，占位 5 个字符
+        %thread - 线程名
+        %logger{50} - logger 名称，最大显示 50 个字符
+        %msg - 日志消息
+        %n - 换行符
+
+        颜色标记说明：
+        %yellow() - 黄色，用于时间戳
+        %highlight() - 根据日志级别自动着色
+        %green() - 绿色，用于线程名
+        %magenta() - 洋红色，用于 logger 名称
+    -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %cyan([%X{traceId:-}]) %green([%thread]) %magenta(%logger{50}) - %msg%n"/>
+
+    <!--
+        文件日志不包含颜色信息，因为文件中的 ANSI 颜色代码会影响日志分析
+    -->
+    <property name="FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId:-}] [%thread] %logger{50} - %msg%n"/>
+
+    <!-- 控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件路径 -->
+        <file>${LOG_HOME}/log.log</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 日志文件滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 每天滚动，压缩 -->
+            <fileNamePattern>${LOG_HOME}/log.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- 保留 30 天的历史记录，超出删除 -->
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 单个文件大小上限 -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 异步写入日志，提高性能 -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <!-- 错误日志文件，专门记录 ERROR 级别日志 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/error.log</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/error.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- 只记录 ERROR 级别日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <!-- 开发环境 -->
+    <springProfile name="dev,dev_base,docker">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ASYNC_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+        <!-- 自定义包路径日志级别 -->
+        <logger name="com.example" level="TRACE"/>
+    </springProfile>
+
+    <!-- 生产环境 -->
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="ASYNC_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+        <!-- 生产环境可以针对特定包设置更高的日志级别 -->
+        <!--<logger name="com.example" level="WARN"/>-->
+    </springProfile>
+
+</configuration>

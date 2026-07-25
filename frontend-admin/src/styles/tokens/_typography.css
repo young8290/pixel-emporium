@@ -1,0 +1,29 @@
+/* 设计 Token · 字体与排版 —— 依据 docs/design/10 §5
+ * 原则：按角色分，不按语言一刀切。像素字体只在「短文本 + 大字号(≥16px)」处用；
+ * 长段/小字中文走无衬线保证快读。字号取 12 的整数倍时才上像素字体。
+ * 像素字体本地自托管见 src/assets/fonts/ 的 @font-face（styles/pixel/_fonts.css）。
+ */
+:root {
+  /* 正文栈（默认，中文快读） */
+  --font-sans: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  /* 像素栈（英文先命中 Silkscreen，中文回落 Zpix/Fusion Pixel） */
+  --font-pixel: "Silkscreen", "Fusion Pixel", "Zpix", monospace;
+
+  /* 字号阶梯 */
+  --fs-h1: 24px;
+  --fs-h2: 20px;
+  --fs-h3: 16px;
+  --fs-body: 14px;
+  --fs-sm: 12px;
+  /* 像素标题专用（12 整数倍，避免非整数倍缩放发虚） */
+  --fs-pixel-lg: 36px;  /* 3× 站点大标题 */
+  --fs-pixel-md: 24px;  /* 2× 页面/木牌标题 */
+
+  /* 行高 */
+  --lh-body: 1.6;
+  --lh-pixel: 1.25;
+
+  /* 字重 */
+  --fw-regular: 400;
+  --fw-bold: 700;
+}

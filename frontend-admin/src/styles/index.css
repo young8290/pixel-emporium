@@ -1,0 +1,26 @@
+/* 全局样式入口 —— 依据 docs/design/10 §10 与 FE-02 §6 引入顺序
+ * 顺序：设计 Token（色/间距/圆角/阴影/字体/动效）→ 像素层（字体@font-face/9-slice/纹理）
+ *       → Element Plus 变量覆盖 → 全局 base（reset + reduced-motion 降级）。
+ * Element Plus 基础主题在 main.js 通过 import 'element-plus/dist/index.css' 先行引入，
+ * 本文件的 element-override 随后覆盖其 CSS 变量。
+ */
+
+/* 1. 设计 Token */
+@import './tokens/_color.css';
+@import './tokens/_space.css';
+@import './tokens/_radius.css';
+@import './tokens/_shadow.css';
+@import './tokens/_typography.css';
+@import './tokens/_motion.css';
+
+/* 2. 像素层 */
+@import './pixel/_fonts.css';
+@import './pixel/_cursor.css';
+@import './pixel/_nineslice.css';
+@import './pixel/_texture.css';
+
+/* 3. Element Plus 变量覆盖 */
+@import './element-override.css';
+
+/* 4. 全局 base（reset + prefers-reduced-motion 降级兜底） */
+@import './base.css';

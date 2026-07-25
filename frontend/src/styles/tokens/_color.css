@@ -1,0 +1,74 @@
+/* 设计 Token · 色板 —— 依据 docs/design/10 §1
+ * 星露谷农场像素风：羊皮纸暖米 + 丰茂草绿 + 丰收金 / 南瓜橙点缀 + 深木描边
+ * 规则：单页 ≤3 主强调色（通常 moss + amber + wood）；pumpkin/sky 计入 3 色预算；brick 仅警告/危险；禁霓虹高饱和。
+ */
+:root {
+  /* 背景与面 */
+  --c-bg: #F3E7C9;          /* 主背景（羊皮纸暖米） */
+  --c-surface: #FCF5E0;     /* 卡片/面板底（羊皮纸） */
+  --c-surface-2: #EAD9B4;   /* 次级底/表头（暖褐米） */
+
+  /* 结构 / 木质 */
+  --c-wood: #A2652F;        /* 结构色/边框（暖橙木） */
+  --c-wood-dark: #6E4423;   /* 深木/像素描边/标题 */
+
+  /* 强调 */
+  --c-moss: #5F9E43;        /* 主强调（丰茂草绿）按钮/选中 */
+  --c-moss-dark: #497E33;   /* 绿按钮按下/hover */
+  --c-amber: #E6A62B;       /* 高亮/价格/徽标（丰收金） */
+  --c-pumpkin: #E07A2E;     /* 促销/节日/角标（南瓜橙，情境色，克制） */
+  --c-brick: #BE4A2E;       /* 警告/危险（砖红，克制使用） */
+
+  /* 文字 */
+  --c-ink: #3A2A1C;         /* 正文文字（深可可褐墨） */
+  --c-ink-2: #6E5A42;       /* 次要文字 */
+
+  /* 信息 / 链接 */
+  --c-sky: #6FA8C0;         /* 信息/链接（柔和天蓝，可选、克制） */
+
+  /* 线 / 禁用 */
+  --c-line: #DEC9A0;        /* 分割线/淡边 */
+  --c-disabled: #CDBE9C;    /* 禁用 */
+
+  /* 语义（复用主色） */
+  --c-success: #5F9E43;     /* 成功（复用 moss） */
+  --c-warning: #E6A62B;     /* 提醒（复用 amber） */
+  --c-danger: #BE4A2E;      /* 错误（复用 brick） */
+
+  /* 季节与昼夜环境 */
+  --c-season: var(--c-amber);
+  --season-accent: var(--c-moss);
+  --c-glow: #FFD98A;
+  --night-veil: rgba(20, 14, 30, 0);
+}
+
+:root[data-season="spring"] { --c-bg: #F1EAD6; --c-season: #E58AA6; --season-accent: #7FB04A; }
+:root[data-season="summer"] { --c-bg: #F5E9C2; --c-season: #37A0C4; --season-accent: #E6A62B; }
+:root[data-season="autumn"] { --c-bg: #F3E2BE; --c-season: #E07A2E; --season-accent: #C6602A; }
+:root[data-season="winter"] { --c-bg: #ECE7D8; --c-season: #6FA8C0; --season-accent: #9BB7C4; }
+
+:root[data-mode="night"] {
+  --c-bg: #241E2E;
+  --c-surface: #322A3D;
+  --c-surface-2: #3E3449;
+  --c-wood: #B4763B;
+  --c-wood-dark: #7A4E29;
+  --c-moss: #6FB050;
+  --c-moss-dark: #558C3C;
+  --c-amber: #F2C14E;
+  --c-pumpkin: #EE8A3C;
+  --c-brick: #D2603F;
+  --c-ink: #F3E7C9;
+  --c-ink-2: #C9B79A;
+  --c-sky: #86C0D6;
+  --c-line: #4A3E58;
+  --c-disabled: #4E4560;
+  --c-success: #6FB050;
+  --c-warning: #F2C14E;
+  --c-danger: #D2603F;
+  --c-glow: #FFD98A;
+  --night-veil:
+    radial-gradient(80% 55% at 50% -8%, rgba(116, 148, 203, .16) 0%, transparent 68%),
+    linear-gradient(180deg, rgba(34, 52, 96, .30) 0%, rgba(17, 24, 55, .42) 100%);
+  --shadow-pixel: 2px 2px 0 rgba(0, 0, 0, .45);
+}

@@ -1,0 +1,28 @@
+@media (pointer: fine) {
+  html,
+  body,
+  #app { cursor: url("@/assets/pixel/cursors/cursor-default.png") 2 2, default; }
+
+  a,
+  button,
+  [role="button"],
+  [role="link"],
+  select,
+  summary { cursor: url("@/assets/pixel/cursors/cursor-pointer.png") 6 2, pointer; }
+
+  input,
+  textarea,
+  [contenteditable="true"] { cursor: url("@/assets/pixel/cursors/cursor-text.png") 15 15, text; }
+
+  [draggable="true"],
+  .is-draggable { cursor: url("@/assets/pixel/cursors/cursor-grab.png") 15 15, grab; }
+
+  [draggable="true"]:active,
+  .is-dragging { cursor: url("@/assets/pixel/cursors/cursor-grabbing.png") 15 15, grabbing; }
+
+  button:disabled,
+  input:disabled,
+  select:disabled,
+  textarea:disabled,
+  [aria-disabled="true"] { cursor: url("@/assets/pixel/cursors/cursor-disabled.png") 15 15, not-allowed; }
+}

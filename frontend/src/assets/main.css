@@ -1,0 +1,3 @@
+/* 全局样式入口：接入像素风设计系统（FE-02）
+ * 设计 Token → 像素层 → Element Plus 覆盖 → base reset + reduced-motion 降级 */
+@import '../styles/index.css';

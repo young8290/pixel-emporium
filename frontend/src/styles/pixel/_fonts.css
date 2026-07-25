@@ -1,0 +1,26 @@
+/* 英文/数字使用 Silkscreen，中文使用 Fusion Pixel UI 子集。
+ * Zpix 仅作为本机已安装字体回退，不打包、不转换、不子集化。
+ */
+
+@font-face {
+  font-family: "Silkscreen";
+  src: local("Silkscreen"), url("@/assets/fonts/Silkscreen-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Silkscreen";
+  src: local("Silkscreen Bold"), url("@/assets/fonts/Silkscreen-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fusion Pixel";
+  src: url("@/assets/fonts/FusionPixel12px-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root { --font-pixel: "Silkscreen", "Fusion Pixel", "Zpix", monospace; }

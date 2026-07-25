@@ -1,0 +1,37 @@
+# Java and Maven
+**/target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Node and frontend tooling
+**/node_modules/
+**/dist/
+**/coverage/
+**/.vite/
+**/.vitest/
+**/.eslintcache
+
+# Local configuration and credentials
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.local.example
+**/application-local.yml
+**/application-*.local.yml
+**/db.properties
+
+# Runtime output
+**/logs/
+*.log
+*.log.gz
+
+# Editors, operating systems, and agent workspaces
+.idea/
+.vscode/
+.worktrees/
+.claude/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Internal process documents are not part of the minimal release
+docs/

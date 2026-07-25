@@ -1,0 +1,3 @@
+<script setup>import PixelButton from '@/components/ui/PixelButton.vue';defineProps({disabled:Boolean,loading:Boolean});defineEmits(['addCart','buyNow'])</script>
+<template><div class="add-bar"><PixelButton type="amber" :disabled="disabled" :loading="loading" @click="$emit('addCart',$event)">加入购物篮</PixelButton><PixelButton type="moss" :disabled="disabled" @click="$emit('buyNow')">立即购买</PixelButton></div></template>
+<style scoped>.add-bar{display:flex;gap:12px}.add-bar>*{flex:1}@media(max-width:767px){.add-bar{position:fixed;z-index:50;left:0;right:0;bottom:60px;padding:10px 12px;border-top:3px solid var(--c-wood-dark);background:var(--c-surface)}}</style>

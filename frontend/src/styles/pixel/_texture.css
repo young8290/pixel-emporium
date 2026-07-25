@@ -1,0 +1,44 @@
+/* 像素纹理 —— 依据 docs/design/10 §3/§9：纹理只做低透明局部，禁止满铺草地/木纹 */
+
+/* 低透明纸/麻纹理底（卡片、面板可叠加，极低对比） */
+.px-tex-paper {
+  background-image: url('@/assets/pixel/backgrounds/tex-paper.png');
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* 低透明木纹（页眉/侧栏局部质感，勿满屏） */
+.px-tex-wood {
+  background-image: url('@/assets/pixel/backgrounds/tex-wood.png');
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* 草叶分隔装饰（区块分隔，横向平铺） */
+.px-divider-grass {
+  height: 24px;
+  background-image: url('@/assets/pixel/common/divider-grass.png');
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: auto 24px;
+}
+
+/* 纹理叠加时降低存在感：用伪元素承载纹理并压透明度，内容不受影响 */
+.px-tex-soft {
+  position: relative;
+}
+.px-tex-soft::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('@/assets/pixel/backgrounds/tex-paper.png');
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  opacity: .12;
+  pointer-events: none;
+  z-index: 0;
+}
+.px-tex-soft > * {
+  position: relative;
+  z-index: 1;
+}

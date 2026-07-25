@@ -1,0 +1,52 @@
+:root {
+  --wallpaper: image-set(
+    url("@/assets/pixel/backgrounds/wallpaper/wall-spring.png") 1x,
+    url("@/assets/pixel/backgrounds/wallpaper/wall-spring@2x.png") 2x
+  );
+  --frame-corner: image-set(
+    url("@/assets/pixel/common/frame/frame-corner.png") 1x,
+    url("@/assets/pixel/common/frame/frame-corner@2x.png") 2x
+  );
+  --frame-corner-vine: image-set(
+    url("@/assets/pixel/common/frame/frame-corner-vine.png") 1x,
+    url("@/assets/pixel/common/frame/frame-corner-vine@2x.png") 2x
+  );
+  --frame-garland: image-set(
+    url("@/assets/pixel/common/frame/frame-garland.png") 1x,
+    url("@/assets/pixel/common/frame/frame-garland@2x.png") 2x
+  );
+  --frame-baseboard: image-set(
+    url("@/assets/pixel/common/frame/frame-baseboard.png") 1x,
+    url("@/assets/pixel/common/frame/frame-baseboard@2x.png") 2x
+  );
+  --transition-curtain: image-set(
+    url("@/assets/pixel/transition/transition-curtain.png") 1x,
+    url("@/assets/pixel/transition/transition-curtain@2x.png") 2x
+  );
+  --transition-dissolve-mask: url("@/assets/pixel/transition/transition-dissolve-mask.png");
+  --transition-sweep: image-set(
+    url("@/assets/pixel/transition/transition-sweep.png") 1x,
+    url("@/assets/pixel/transition/transition-sweep@2x.png") 2x
+  );
+}
+
+:root[data-season="summer"] {
+  --wallpaper: image-set(
+    url("@/assets/pixel/backgrounds/wallpaper/wall-summer.png") 1x,
+    url("@/assets/pixel/backgrounds/wallpaper/wall-summer@2x.png") 2x
+  );
+}
+
+:root[data-season="autumn"] {
+  --wallpaper: image-set(
+    url("@/assets/pixel/backgrounds/wallpaper/wall-autumn.png") 1x,
+    url("@/assets/pixel/backgrounds/wallpaper/wall-autumn@2x.png") 2x
+  );
+}
+
+:root[data-season="winter"] {
+  --wallpaper: image-set(
+    url("@/assets/pixel/backgrounds/wallpaper/wall-winter.png") 1x,
+    url("@/assets/pixel/backgrounds/wallpaper/wall-winter@2x.png") 2x
+  );
+}
