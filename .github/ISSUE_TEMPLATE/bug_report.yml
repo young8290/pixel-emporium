@@ -1,0 +1,47 @@
+name: 🐞 问题反馈
+description: 报告一个 Bug 或异常行为
+labels: [bug]
+body:
+  - type: dropdown
+    id: module
+    attributes:
+      label: 涉及模块
+      multiple: true
+      options:
+        - frontend（用户端）
+        - frontend-admin（管理端）
+        - gateway
+        - user
+        - business
+        - common / common-orm / common-security
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 发生了什么？期望的行为是什么？
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 打开 ...
+        2. 点击 ...
+        3. 看到 ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志或截图
+      description: 请先移除其中的密码、Token、密钥等敏感信息。
+      render: text
+  - type: input
+    id: env
+    attributes:
+      label: 运行环境
+      placeholder: 例如 Windows 11 / JDK 21 / Node 22 / MySQL 8.0 / Redis 7
